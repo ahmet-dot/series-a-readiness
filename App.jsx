@@ -310,11 +310,11 @@ export default function App() {
             Are You <span style={{ color: "#00C6A0" }}>Series A Ready?</span>
           </h1>
           <p style={{ fontSize: "17px", color: "#94A3B8", lineHeight: 1.7, marginBottom: "36px" }}>
-            20 questions. Instant score. Prioritized action plan.<br />
+            16 questions. Instant score. Prioritized action plan.<br />
             Built by a fractional CFO who has seen hundreds of founders walk into investor meetings unprepared.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "36px" }}>
-            {[["Revenue Quality", "Unit Economics"], ["Financial Infrastructure", "Investor Readiness"], ["Runway & Cash", "Product-Market Fit"]].flat().map(cat => (
+            {[["Cash & Runway", "Revenue & Growth"], ["Financial Infrastructure", "Investor Readiness"]].flat().map(cat => (
               <div key={cat} style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 16px", background: "rgba(255,255,255,0.03)", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.05)" }}>
                 <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: CATEGORY_COLORS[cat], flexShrink: 0 }} />
                 <span style={{ fontSize: "13px", color: "#CBD5E1", fontWeight: "500" }}>{cat}</span>
@@ -326,7 +326,7 @@ export default function App() {
             onMouseOut={e => e.target.style.opacity = "1"}>
             Start Assessment →
           </button>
-          <p style={{ fontSize: "13px", color: "#475569", textAlign: "center", marginTop: "16px" }}>No signup required. Results in under 5 minutes.</p>
+          
         </div>
       </div>
     </div>
