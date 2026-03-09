@@ -301,7 +301,7 @@ export default function App() {
       <div style={styles.bg} />
       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
       <div style={styles.container}>
-        <div style={styles.logo}>Unicorn CFO</div>
+        <a href="https://unicorncfo.com" target="_blank" rel="noopener noreferrer" style={{...styles.logo, textDecoration: "none"}}>Unicorn CFO</a>
         <div style={styles.card}>
           <div style={{ display: "inline-block", background: "rgba(0,198,160,0.1)", border: "1px solid rgba(0,198,160,0.3)", borderRadius: "100px", padding: "6px 16px", fontSize: "12px", color: "#00C6A0", fontWeight: "600", letterSpacing: "1px", marginBottom: "28px" }}>
             FREE ASSESSMENT · 5 MINUTES
@@ -337,7 +337,7 @@ export default function App() {
       <div style={styles.bg} />
       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
       <div style={styles.container}>
-        <div style={styles.logo}>Unicorn CFO</div>
+        <a href="https://unicorncfo.com" target="_blank" rel="noopener noreferrer" style={{...styles.logo, textDecoration: "none"}}>Unicorn CFO</a>
 
         {/* Progress */}
         <div style={{ marginBottom: "32px" }}>
@@ -396,7 +396,7 @@ export default function App() {
       <div style={styles.bg} />
       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
       <div style={styles.container}>
-        <div style={styles.logo}>Unicorn CFO</div>
+        <a href="https://unicorncfo.com" target="_blank" rel="noopener noreferrer" style={{...styles.logo, textDecoration: "none"}}>Unicorn CFO</a>
         <div style={styles.card}>
           <div style={{ fontSize: "48px", marginBottom: "16px" }}>🎯</div>
           <h2 style={{ fontSize: "28px", fontWeight: "800", marginBottom: "12px", letterSpacing: "-0.5px" }}>You're done.</h2>
@@ -449,7 +449,7 @@ export default function App() {
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
         <style>{`@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } } .fade-up { animation: fadeUp 0.5s ease forwards; }`}</style>
         <div style={{ ...styles.container, maxWidth: "720px" }}>
-          <div style={styles.logo}>Unicorn CFO</div>
+          <a href="https://unicorncfo.com" target="_blank" rel="noopener noreferrer" style={{...styles.logo, textDecoration: "none"}}>Unicorn CFO</a>
 
           {/* Score Hero */}
           <div className="fade-up" style={{ ...styles.card, textAlign: "center", marginBottom: "20px", animationDelay: "0s" }}>
@@ -518,4 +518,3 @@ export default function App() {
 
   return null;
 }
-
