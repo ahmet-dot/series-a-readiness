@@ -2,138 +2,110 @@ import { useState, useEffect, useRef } from "react";
 
 const QUESTIONS = [
   {
-    id: 1, category: "Revenue Quality", weight: 8,
-    question: "What is your current ARR?",
+    id: 1, category: "Cash & Runway", weight: 10,
+    question: "How many months of runway do you have right now?",
+    options: ["Less than 6 months", "6–9 months", "9–12 months", "12–18 months", "18+ months"],
+    scores: [0, 2, 5, 8, 10]
+  },
+  {
+    id: 2, category: "Cash & Runway", weight: 9,
+    question: "If your revenue stopped today, how quickly would you know you have a problem?",
+    options: ["Probably months later", "When I check the bank account", "Within a few weeks", "Within days — I track it weekly", "Same day — I have live dashboards"],
+    scores: [0, 2, 4, 7, 10]
+  },
+  {
+    id: 3, category: "Cash & Runway", weight: 8,
+    question: "When did you last update your 12-month cash forecast?",
+    options: ["Never built one", "Over 6 months ago", "3–6 months ago", "Last month", "This month — it's a living document"],
+    scores: [0, 2, 4, 7, 10]
+  },
+  {
+    id: 4, category: "Cash & Runway", weight: 8,
+    question: "If you hired 3 people next month, how would that affect your runway?",
+    options: ["No idea", "Rough guess only", "I could estimate it in a few days", "I could calculate it in hours", "I know instantly — model is always ready"],
+    scores: [0, 2, 4, 7, 10]
+  },
+  {
+    id: 5, category: "Revenue & Growth", weight: 10,
+    question: "What is your current Annual Recurring Revenue (ARR)?",
     options: ["Under $500K", "$500K – $1M", "$1M – $2M", "$2M – $3M", "Over $3M"],
     scores: [1, 3, 6, 8, 10]
   },
   {
-    id: 2, category: "Revenue Quality", weight: 9,
-    question: "What is your Net Revenue Retention (NRR)?",
-    options: ["Don't track it", "Below 90%", "90% – 100%", "100% – 110%", "Above 110%"],
-    scores: [0, 3, 5, 8, 10]
-  },
-  {
-    id: 3, category: "Revenue Quality", weight: 7,
-    question: "How predictable is your MRR month-over-month?",
-    options: ["Very unpredictable", "Somewhat variable", "Mostly predictable", "Highly predictable with contracts"],
-    scores: [1, 4, 7, 10]
-  },
-  {
-    id: 4, category: "Unit Economics", weight: 9,
-    question: "Do you know your CAC Payback Period?",
-    options: ["No idea", "Over 24 months", "12–24 months", "6–12 months", "Under 6 months"],
-    scores: [0, 2, 5, 8, 10]
-  },
-  {
-    id: 5, category: "Unit Economics", weight: 8,
-    question: "What is your Gross Margin?",
-    options: ["Don't know", "Below 50%", "50–65%", "65–75%", "Above 75%"],
-    scores: [0, 2, 5, 8, 10]
-  },
-  {
-    id: 6, category: "Unit Economics", weight: 7,
-    question: "What is your Burn Multiple? (Net Burn / Net New ARR)",
-    options: ["Don't track", "Above 2x", "1.5x – 2x", "1x – 1.5x", "Below 1x"],
+    id: 6, category: "Revenue & Growth", weight: 9,
+    question: "How has your monthly revenue trended over the last 6 months?",
+    options: ["Declining", "Flat", "Growing slowly (1–3% per month)", "Growing steadily (3–7% per month)", "Growing fast (7%+ per month)"],
     scores: [0, 2, 4, 7, 10]
   },
   {
-    id: 7, category: "Financial Infrastructure", weight: 8,
-    question: "How is your financial reporting done today?",
-    options: ["Founder manages in Excel", "Bookkeeper only", "Part-time controller", "Full financial stack (GAAP + dashboards)", "Fractional/Full CFO in place"],
+    id: 7, category: "Revenue & Growth", weight: 8,
+    question: "When an existing customer expands their contract or buys more, how often does that happen?",
+    options: ["Almost never", "Rarely — a few times a year", "Sometimes — a few times a quarter", "Regularly — it's part of our motion", "Very often — expansion drives meaningful revenue"],
+    scores: [0, 2, 4, 7, 10]
+  },
+  {
+    id: 8, category: "Revenue & Growth", weight: 8,
+    question: "How many customers have cancelled in the last 12 months?",
+    options: ["Many — more than 20% of our base", "Some — around 10–20%", "A few — around 5–10%", "Very few — under 5%", "Almost none — under 2%"],
+    scores: [0, 2, 4, 7, 10]
+  },
+  {
+    id: 9, category: "Financial Infrastructure", weight: 9,
+    question: "How is your financial reporting handled today?",
+    options: ["Founder manages it in spreadsheets", "We have a bookkeeper", "Part-time accountant or controller", "Proper accounting stack with reporting", "Fractional or full-time CFO in place"],
     scores: [1, 3, 5, 8, 10]
   },
   {
-    id: 8, category: "Financial Infrastructure", weight: 7,
-    question: "How quickly can you produce a board-ready financial package?",
-    options: ["Never done it", "2+ weeks", "1–2 weeks", "3–5 days", "Under 3 days"],
+    id: 10, category: "Financial Infrastructure", weight: 8,
+    question: "If an investor asked for your last 3 months of financials right now, how long would it take?",
+    options: ["Weeks — I'd have to build it from scratch", "About a week", "A few days", "1–2 days", "Same day — it's always ready"],
     scores: [0, 2, 4, 7, 10]
   },
   {
-    id: 9, category: "Financial Infrastructure", weight: 6,
-    question: "Do you have a 18-month driver-based financial model?",
-    options: ["No model", "Basic spreadsheet", "Partial model", "Full model, rarely updated", "Dynamic model, updated monthly"],
+    id: 11, category: "Financial Infrastructure", weight: 7,
+    question: "Do you know your gross margin (revenue minus direct costs)?",
+    options: ["No idea", "Rough ballpark only", "I know it but it's not tracked consistently", "Yes, tracked monthly", "Yes, tracked and benchmarked vs. industry"],
     scores: [0, 2, 4, 7, 10]
   },
   {
-    id: 10, category: "Runway & Cash", weight: 9,
-    question: "How many months of runway do you currently have?",
-    options: ["Under 6 months", "6–9 months", "9–12 months", "12–18 months", "18+ months"],
-    scores: [0, 2, 5, 8, 10]
-  },
-  {
-    id: 11, category: "Runway & Cash", weight: 7,
-    question: "How confident are you in your 12-month cash forecast accuracy?",
-    options: ["Not confident at all", "Rough estimates only", "Somewhat confident", "Very confident", "Confident with scenario planning"],
-    scores: [0, 2, 5, 8, 10]
-  },
-  {
-    id: 12, category: "Growth", weight: 8,
-    question: "What is your MoM ARR growth rate over last 3 months?",
-    options: ["Flat or declining", "1–3%", "3–5%", "5–10%", "Above 10%"],
-    scores: [0, 2, 5, 8, 10]
-  },
-  {
-    id: 13, category: "Growth", weight: 7,
-    question: "How repeatable is your sales motion?",
-    options: ["All founder-led, no process", "Some documentation", "Defined playbook", "Repeatable with AEs", "Predictable pipeline + quota attainment"],
-    scores: [1, 3, 5, 8, 10]
-  },
-  {
-    id: 14, category: "Investor Readiness", weight: 8,
-    question: "How complete is your data room?",
-    options: ["No data room", "Basic docs only", "Partial (missing financials or cap table)", "Mostly complete", "Fully ready to share"],
+    id: 12, category: "Financial Infrastructure", weight: 7,
+    question: "How long does it take your team to prepare for a board meeting?",
+    options: ["We don't have board meetings", "2+ weeks of scrambling", "About a week", "2–3 days", "Under a day — reporting is automated"],
     scores: [0, 2, 4, 7, 10]
   },
   {
-    id: 15, category: "Investor Readiness", weight: 7,
-    question: "Does your cap table have issues? (SAFEs, convertible notes, complexity)",
-    options: ["Major issues / never modeled dilution", "Some complexity, not modeled", "Complex but understood", "Clean and modeled", "Clean, modeled, and attorney reviewed"],
-    scores: [0, 3, 5, 7, 10]
+    id: 13, category: "Investor Readiness", weight: 10,
+    question: "Have you raised outside capital before?",
+    options: ["No — completely bootstrapped", "Friends & family only", "Pre-seed round (under $1M)", "Seed round ($1M–$3M)", "Seed round over $3M or multiple rounds"],
+    scores: [1, 2, 5, 8, 10]
   },
   {
-    id: 16, category: "Investor Readiness", weight: 6,
-    question: "Have you defined your Series A milestone narrative?",
-    options: ["No clear story", "Rough idea", "Defined internally", "Validated with advisors", "Tested with investors"],
-    scores: [0, 2, 5, 7, 10]
-  },
-  {
-    id: 17, category: "Product-Market Fit", weight: 8,
-    question: "What is your logo churn rate (annual)?",
-    options: ["Don't track", "Above 20%", "15–20%", "5–15%", "Below 5%"],
+    id: 14, category: "Investor Readiness", weight: 9,
+    question: "If an investor asked 'what happens to this business in the next 18 months?', how ready is your answer?",
+    options: ["I don't have a clear answer", "I have a rough idea in my head", "I have a slide or two", "I have a financial model that supports the story", "I have a full narrative backed by data and milestones"],
     scores: [0, 2, 4, 7, 10]
   },
   {
-    id: 18, category: "Product-Market Fit", weight: 7,
-    question: "How strong are your customer references / NPS?",
-    options: ["No data", "Mixed reviews", "Positive but limited", "Strong references available", "Champions who will talk to investors"],
-    scores: [0, 2, 5, 7, 10]
+    id: 15, category: "Investor Readiness", weight: 8,
+    question: "How organized is your company's paperwork? (cap table, contracts, corporate docs)",
+    options: ["It's a mess — I'm not sure what we have", "Some things are organized, some are missing", "Most things are in order", "Everything is organized and accessible", "Fully organized, attorney reviewed, data room ready"],
+    scores: [0, 2, 4, 7, 10]
   },
   {
-    id: 19, category: "Team", weight: 7,
-    question: "How complete is your leadership team for Series A?",
-    options: ["Founder only", "2 founders", "Founders + 1-2 key hires", "Most C-suite filled", "Full team with relevant experience"],
-    scores: [1, 3, 5, 8, 10]
-  },
-  {
-    id: 20, category: "Team", weight: 6,
-    question: "How prepared are you personally to run a 6–9 month fundraise?",
-    options: ["Not at all", "Somewhat — still running everything", "Have delegated some operations", "Mostly ready", "Fully ready, have a plan"],
+    id: 16, category: "Investor Readiness", weight: 8,
+    question: "How many warm investor conversations have you had in the last 6 months?",
+    options: ["None", "1–2 casual conversations", "3–5 conversations", "5–10 conversations", "10+ conversations, active pipeline"],
     scores: [0, 2, 4, 7, 10]
   }
 ];
 
-const CATEGORIES = ["Revenue Quality", "Unit Economics", "Financial Infrastructure", "Runway & Cash", "Growth", "Investor Readiness", "Product-Market Fit", "Team"];
+const CATEGORIES = ["Cash & Runway", "Revenue & Growth", "Financial Infrastructure", "Investor Readiness"];
 
 const CATEGORY_COLORS = {
-  "Revenue Quality": "#00C6A0",
-  "Unit Economics": "#3B82F6",
+  "Cash & Runway": "#F59E0B",
+  "Revenue & Growth": "#00C6A0",
   "Financial Infrastructure": "#8B5CF6",
-  "Runway & Cash": "#F59E0B",
-  "Growth": "#10B981",
-  "Investor Readiness": "#EF4444",
-  "Product-Market Fit": "#EC4899",
-  "Team": "#6366F1"
+  "Investor Readiness": "#3B82F6"
 };
 
 function ScoreGauge({ score }) {
@@ -258,11 +230,14 @@ export default function App() {
       const text = data.content?.[0]?.text || "[]";
       let actions = [];
       try { actions = JSON.parse(text.replace(/```json|```/g, "").trim()); } catch (e) { actions = []; }
+
+      // Send email notification (fire and forget)
       fetch("/api/notify", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ email, score, catScores })
-}).catch(() => {});
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, score, catScores })
+      }).catch(() => {});
+
       setResults({ score, catScores, actions, email });
       setStep("results");
     } catch (e) {
