@@ -258,6 +258,11 @@ export default function App() {
       const text = data.content?.[0]?.text || "[]";
       let actions = [];
       try { actions = JSON.parse(text.replace(/```json|```/g, "").trim()); } catch (e) { actions = []; }
+      fetch("/api/notify", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email, score, catScores })
+}).catch(() => {});
       setResults({ score, catScores, actions, email });
       setStep("results");
     } catch (e) {
