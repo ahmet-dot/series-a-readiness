@@ -329,7 +329,7 @@ export default function App() {
       <div style={styles.bg} />
       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
       <div style={styles.container}>
-        <div style={styles.logo}>Unicorn CFO</div>
+        <a href="https://www.unicorncfo.com/" target="_blank" rel="noopener noreferrer" style={{ ...styles.logo, textDecoration: 'none', color: 'inherit' }}>Unicorn CFO</a>
         <div style={styles.card}>
           <div style={{ display: "inline-block", background: "rgba(0,198,160,0.1)", border: "1px solid rgba(0,198,160,0.3)", borderRadius: "100px", padding: "6px 16px", fontSize: "12px", color: "#00C6A0", fontWeight: "600", letterSpacing: "1px", marginBottom: "28px" }}>
             FREE ASSESSMENT · 5 MINUTES
